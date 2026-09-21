@@ -48,6 +48,10 @@ jobs:
           touch .nojekyll
 
       - uses: actions/configure-pages@v5
+        with:
+          # Active Pages automatiquement si ce n'est pas déjà fait dans
+          # Settings → Pages (source : GitHub Actions).
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
