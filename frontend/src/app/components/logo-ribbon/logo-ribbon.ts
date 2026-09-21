@@ -59,6 +59,9 @@ import type { Partner } from '../../core/models/content.models';
     }
 
     .ribbon__item img {
+      /* Voir references.scss : évite que l'intrinsèque impose la largeur. */
+      min-width: 0;
+      min-height: 0;
       max-width: 100%;
       max-height: 100%;
       width: auto;

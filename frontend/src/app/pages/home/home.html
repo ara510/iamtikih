@@ -43,7 +43,14 @@
       @for (paragraph of about.body; track $index) {
         <p class="lead" appReveal [revealDelay]="0.16 + $index * 0.06">{{ paragraph }}</p>
       }
-      <p class="intro__award" appReveal [revealDelay]="0.4">🏆 {{ brand.award }}</p>
+      <aside class="award" appReveal [revealDelay]="0.4">
+        <span class="award__trophy" aria-hidden="true">🏆</span>
+        <div class="award__body">
+          <p class="award__label">{{ brand.awardLabel }}</p>
+          <p class="award__title">{{ brand.awardTitle }}</p>
+          <p class="award__meta">{{ brand.awardScope }} · {{ brand.awardYear }}</p>
+        </div>
+      </aside>
     </div>
   </div>
 </section>

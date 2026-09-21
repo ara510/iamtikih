@@ -11,6 +11,8 @@
   display: grid;
   place-items: center;
   margin: 0;
+  // La tuile est elle-même un élément de grille : même précaution.
+  min-width: 0;
   aspect-ratio: 3 / 2;
   padding: clamp(0.7rem, 1.4vw, 1.25rem);
   border: 1px solid var(--rule);
@@ -21,6 +23,11 @@
     transform 0.45s var(--ease);
 
   img {
+    // Élément de grille : sans min-width/min-height à 0, sa taille minimale
+    // automatique vaut sa largeur intrinsèque. Un logo large (by-tribes fait
+    // 600 px) élargit alors la tuile et fait déborder la page sur mobile.
+    min-width: 0;
+    min-height: 0;
     max-width: 100%;
     max-height: 100%;
     width: auto;

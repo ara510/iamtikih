@@ -182,14 +182,52 @@
   margin-top: 1rem;
 }
 
-.intro__award {
-  margin-top: 0.5rem;
-  padding: 0.6rem 1.1rem;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--fg-soft);
+// Distinction : bloc sombre sur la section claire, pour qu'elle se détache
+// nettement du reste du texte.
+.award {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: clamp(0.9rem, 2.4vw, 1.6rem);
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: clamp(1.1rem, 2.6vw, 1.6rem) clamp(1.25rem, 3vw, 2rem);
+  border-radius: 20px;
+  border: 1px solid rgb(var(--sunset-rgb) / 0.55);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgb(var(--sunset-rgb) / 0.22), transparent 60%),
+    var(--ink);
+  color: var(--cream);
+
+  @include below(460px) {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  &__trophy {
+    font-size: clamp(1.9rem, 5vw, 2.75rem);
+    line-height: 1;
+  }
+
+  &__body {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  &__label {
+    @include eyebrow;
+    color: var(--sunset);
+  }
+
+  &__title {
+    @include display(clamp(1.45rem, 3.4vw, 2.4rem));
+  }
+
+  &__meta {
+    font-size: 0.82rem;
+    color: rgb(var(--cream-rgb) / 0.7);
+  }
 }
 
 // ── KEY TOPICS ──────────────────────────────────────────────────────────────
@@ -505,6 +543,8 @@
   display: grid;
   place-items: center;
   margin: 0;
+  // La tuile est elle-même un élément de grille : même précaution.
+  min-width: 0;
   aspect-ratio: 16 / 9;
   padding: clamp(1rem, 2.5vw, 2rem);
   border: 1px solid var(--rule);
@@ -513,6 +553,11 @@
   transition: border-color 0.45s var(--ease);
 
   img {
+    // Élément de grille : sans min-width/min-height à 0, sa taille minimale
+    // automatique vaut sa largeur intrinsèque. Un logo large (by-tribes fait
+    // 600 px) élargit alors la tuile et fait déborder la page sur mobile.
+    min-width: 0;
+    min-height: 0;
     max-width: 100%;
     max-height: 100%;
     width: auto;
