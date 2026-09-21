@@ -1,0 +1,245 @@
+@use '../../../styles/mixins' as *;
+
+:host {
+  --bar-fg: var(--cream);
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.bar {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  transition:
+    background 0.5s var(--ease),
+    border-color 0.5s var(--ease);
+  border-bottom: 1px solid transparent;
+
+  :host(.is-stuck) & {
+    background: rgb(var(--abyss-rgb) / 0.78);
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--line-invert);
+  }
+}
+
+.bar__inner {
+  @include shell;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  height: clamp(68px, 8vh, 92px);
+  color: var(--bar-fg);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brand__mark {
+  font-size: 0.85em;
+  color: var(--aqua);
+  transition: transform 0.8s var(--ease);
+
+  @include hover-media {
+    .brand:hover & {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  gap: clamp(1.5rem, 2.6vw, 3rem);
+
+  @include below(940px) {
+    display: none;
+  }
+}
+
+.nav__link {
+  position: relative;
+  display: block;
+  height: 1.2em;
+  overflow: hidden;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  span {
+    display: block;
+    transition: transform 0.5s var(--ease);
+  }
+
+  @include hover-media {
+    &:hover span {
+      transform: translateY(-100%);
+    }
+  }
+
+  &.is-active {
+    color: var(--aqua);
+  }
+}
+
+.bar__end {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.bar__cta {
+  padding: 0.6rem 1.35rem;
+  border: 1px solid var(--line-invert);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition:
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+
+  @include below(620px) {
+    display: none;
+  }
+
+  @include hover-media {
+    &:hover {
+      background: var(--aqua);
+      border-color: var(--aqua);
+      color: var(--ink);
+    }
+  }
+}
+
+.burger {
+  display: grid;
+  gap: 6px;
+  width: 30px;
+  padding: 6px 0;
+
+  span {
+    display: block;
+    height: 1.5px;
+    width: 100%;
+    background: currentColor;
+    transition: transform 0.45s var(--ease);
+  }
+
+  :host(.is-open) & span:first-child {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+
+  :host(.is-open) & span:last-child {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+}
+
+// --- Overlay ---------------------------------------------------------------
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  background: var(--ink-deep);
+  color: var(--cream);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.85s var(--ease);
+  pointer-events: none;
+
+  :host(.is-open) & {
+    clip-path: inset(0 0 0 0);
+    pointer-events: auto;
+  }
+}
+
+.overlay__inner {
+  @include shell;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+  padding-top: clamp(96px, 14vh, 150px);
+  padding-bottom: clamp(2.5rem, 6vh, 5rem);
+}
+
+.overlay__nav {
+  display: grid;
+  gap: clamp(0.25rem, 1vh, 0.75rem);
+}
+
+.overlay__link {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  padding-block: clamp(0.35rem, 1vh, 0.9rem);
+  border-bottom: 1px solid var(--line-invert);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease),
+    color 0.4s var(--ease);
+  transition-delay: calc(var(--i) * 70ms + 180ms);
+
+  :host(.is-open) & {
+    opacity: 1;
+    transform: none;
+  }
+
+  @include hover-media {
+    &:hover {
+      color: var(--aqua);
+    }
+  }
+}
+
+.overlay__index {
+  @include eyebrow;
+  color: var(--aqua);
+}
+
+.overlay__label {
+  @include display(clamp(2.75rem, 9vw, 7rem));
+}
+
+.overlay__aside {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.overlay__block {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.overlay__mail {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.overlay__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+}

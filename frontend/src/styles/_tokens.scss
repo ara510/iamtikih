@@ -1,0 +1,65 @@
+// ---------------------------------------------------------------------------
+// Design tokens — I AM TIKIH
+// Palette « océan Indien » : bleus profonds, lagon turquoise, sable, couchant.
+// ---------------------------------------------------------------------------
+:root {
+  // Palette
+  --abyss: #04222e; // grand fond
+  --ink: #0a3444; // bleu profond (fonds sombres, texte)
+  --ink-deep: var(--abyss);
+  --ink-soft: #46707e; // bleu délavé
+  --ocean: #14607a; // bleu médian
+  --aqua: #19c8c1; // lagon — accent principal
+  --spray: #7fd8d3; // écume turquoise
+  --coral: #ff6f52; // corail — accent chaud
+  --sunset: #ffb066; // heure dorée
+  --cream: #f6efe4; // sable
+  --cream-deep: #ede0cc; // sable mouillé
+  --paper: #fcfaf6; // écume claire
+  --muted: #8ca3ac;
+
+  // Canaux RVB (pour les transparences)
+  --ink-rgb: 10 52 68;
+  --abyss-rgb: 4 34 46;
+  --aqua-rgb: 25 200 193;
+  --coral-rgb: 255 111 82;
+  --sunset-rgb: 255 176 102;
+  --cream-rgb: 246 239 228;
+
+  --line: rgb(var(--ink-rgb) / 0.16);
+  --line-invert: rgb(var(--cream-rgb) / 0.2);
+
+  // Contextual (inversé par .is-dark)
+  --bg: var(--cream);
+  --fg: var(--ink);
+  --fg-soft: var(--ink-soft);
+  --rule: var(--line);
+
+  // Type
+  --font-display: 'Sofia Sans Extra Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Sora', 'Helvetica Neue', Arial, sans-serif;
+
+  --fs-display: clamp(4.5rem, 15vw, 15rem);
+  --fs-h1: clamp(3.25rem, 9vw, 8.5rem);
+  --fs-h2: clamp(2.5rem, 6vw, 5.5rem);
+  --fs-h3: clamp(1.75rem, 3vw, 3rem);
+  --fs-lead: clamp(1.05rem, 1.5vw, 1.45rem);
+  --fs-body: clamp(0.95rem, 1.05vw, 1.05rem);
+  --fs-eyebrow: 0.72rem;
+
+  // Space
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --section-y: clamp(5rem, 11vh, 10rem);
+  --maxw: 1600px;
+
+  // Motion
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.7s;
+}
+
+.is-dark {
+  --bg: var(--ink);
+  --fg: var(--cream);
+  --fg-soft: rgb(var(--cream-rgb) / 0.64);
+  --rule: var(--line-invert);
+}

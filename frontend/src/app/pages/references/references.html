@@ -1,0 +1,65 @@
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <p class="eyebrow">{{ intro.eyebrow }}</p>
+    <h1 class="page-hero__title">
+      @for (line of intro.title; track line) {
+        <span>{{ line }}</span>
+      }
+    </h1>
+    <p class="page-hero__lead">{{ intro.body }}</p>
+  </div>
+</section>
+
+<!-- Ruban : l'ampleur se voit avant même de lire les listes. -->
+<section class="ribbons">
+  <div class="ribbons__count shell">
+    <span class="ribbons__figure">{{ total }}</span>
+    <span class="ribbons__label">partners &amp; collaborations</span>
+  </div>
+  <app-logo-ribbon [partners]="ribbonTop()" [speed]="54" />
+  <app-logo-ribbon [partners]="ribbonBottom()" [speed]="66" [reverse]="true" />
+</section>
+
+<section class="primary-sec">
+  <div class="shell">
+    <p class="eyebrow" appReveal>{{ primary.label }}</p>
+    <div class="primary__grid" appReveal [revealDelay]="0.08">
+      @for (partner of primary.partners; track partner.logo) {
+        <figure class="tile tile--lead" [title]="partner.name">
+          <img [src]="partner.logo" [alt]="partner.name" loading="lazy" decoding="async" />
+        </figure>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="groups">
+  <div class="shell">
+    @for (group of groups; track group.title) {
+      <article class="group-block" appReveal>
+        <header class="group-block__head">
+          <span class="group-block__icon" aria-hidden="true">{{ group.icon }}</span>
+          <h2 class="group-block__title">{{ group.title }}</h2>
+          <span class="group-block__count">{{ group.partners.length }}</span>
+        </header>
+
+        <div class="group-block__grid">
+          @for (partner of group.partners; track partner.logo) {
+            <figure class="tile" [title]="partner.name">
+              <img [src]="partner.logo" [alt]="partner.name" loading="lazy" decoding="async" />
+            </figure>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="tail">
+  <div class="shell tail__inner">
+    <h2 class="tail__title" appReveal>{{ cta.title[0] }} {{ cta.title[1] }}</h2>
+    <a class="btn" routerLink="/contact" appReveal [revealDelay]="0.1">
+      {{ cta.action }} <span class="btn__arrow">→</span>
+    </a>
+  </div>
+</section>

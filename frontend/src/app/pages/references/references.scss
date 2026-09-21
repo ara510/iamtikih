@@ -1,0 +1,156 @@
+@use '../../../styles/mixins' as *;
+
+:host {
+  display: block;
+}
+
+// --- Tuile de logo ---------------------------------------------------------
+// Chaque logo arrive avec son propre fond (blanc, noir, photo) et son propre
+// format. La tuile les normalise : même cadre, même respiration, logo contenu.
+.tile {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  aspect-ratio: 3 / 2;
+  padding: clamp(0.7rem, 1.4vw, 1.25rem);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--paper);
+  transition:
+    border-color 0.45s var(--ease),
+    transform 0.45s var(--ease);
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    // Fond blanc des logos fondu dans la tuile.
+    mix-blend-mode: multiply;
+    transition: transform 0.45s var(--ease);
+  }
+
+  @include hover-media {
+    &:hover {
+      border-color: var(--aqua);
+      transform: translateY(-3px);
+
+      img {
+        transform: scale(1.06);
+      }
+    }
+  }
+
+  &--lead {
+    aspect-ratio: 16 / 9;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    border-radius: 20px;
+  }
+}
+
+// --- Rubans défilants ------------------------------------------------------
+.ribbons {
+  display: grid;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  padding-block: clamp(2.5rem, 6vh, 4rem);
+  background: var(--cream-deep);
+  overflow: hidden;
+}
+
+.ribbons__count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: clamp(0.5rem, 2vh, 1.25rem);
+}
+
+.ribbons__figure {
+  @include display(clamp(2.75rem, 6vw, 5rem));
+  color: var(--ocean);
+}
+
+.ribbons__label {
+  @include eyebrow;
+}
+
+// --- Partenaire principal --------------------------------------------------
+.primary-sec {
+  @include section;
+  background: var(--paper);
+  padding-block: clamp(3rem, 8vh, 5rem);
+
+  .eyebrow {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.primary__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+
+  @include below(720px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --- Groupes ---------------------------------------------------------------
+.groups {
+  @include section;
+  background: var(--cream);
+  padding-top: 0;
+}
+
+.group-block {
+  padding-block: clamp(2rem, 5vh, 3.5rem);
+  border-top: 1px solid var(--rule);
+
+  &:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    margin-bottom: 1.75rem;
+  }
+
+  &__icon {
+    font-size: 1.35rem;
+  }
+
+  &__title {
+    @include display(var(--fs-h3));
+  }
+
+  &__count {
+    @include eyebrow;
+    color: var(--ocean);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(120px, 14vw, 180px), 1fr));
+    gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  }
+}
+
+// --- Bas de page -----------------------------------------------------------
+.tail {
+  @include section;
+  background: var(--cream-deep);
+  text-align: center;
+
+  &__inner {
+    display: grid;
+    gap: 1.75rem;
+    justify-items: center;
+  }
+
+  &__title {
+    @include display(var(--fs-h1));
+    max-width: 14ch;
+  }
+}

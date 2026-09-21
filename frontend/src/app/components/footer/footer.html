@@ -1,0 +1,74 @@
+<footer class="foot is-dark">
+  <div class="foot__ticker">
+    <app-marquee [items]="pillars" [speed]="40" />
+  </div>
+
+  <div class="foot__grid shell">
+    <div class="foot__col foot__col--wide">
+      <p class="eyebrow">{{ brand.role }}</p>
+      <p class="foot__claim">“{{ brand.quote }}”</p>
+      <a class="foot__mail" [href]="'mailto:' + brand.email">{{ brand.email }}</a>
+    </div>
+
+    <nav class="foot__col" aria-label="Site pages">
+      <p class="eyebrow">Pages</p>
+      <ul>
+        @for (link of nav; track link.path) {
+          <li><a class="link-line" [routerLink]="link.path">{{ link.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <div class="foot__col">
+      <p class="eyebrow">Follow</p>
+      <ul>
+        @for (social of socials; track social.label) {
+          <li>
+            <a class="link-line" [href]="social.path" target="_blank" rel="noopener">
+              {{ social.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="foot__col">
+      <p class="eyebrow">Contact</p>
+      <ul>
+        <li>{{ brand.location }}</li>
+        <li><a class="link-line" [href]="'https://wa.me/' + whatsappDigits">{{ brand.whatsapp }}</a></li>
+        <li><a class="link-line" [href]="'mailto:' + brand.email">{{ brand.email }}</a></li>
+      </ul>
+    </div>
+
+    <form class="foot__col foot__news" (ngSubmit)="subscribe()">
+      <p class="eyebrow">Newsletter</p>
+      <label class="foot__field">
+        <span class="visually-hidden">Email address</span>
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="you@company.com"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+        />
+        <button type="submit" aria-label="Subscribe">→</button>
+      </label>
+      @if (subscribed()) {
+        <p class="foot__ack">Thank you — you’re subscribed ✦</p>
+      } @else {
+        <p class="foot__hint">New destinations, films and collaborations — a few times a year.</p>
+      }
+    </form>
+  </div>
+
+  <div class="foot__wordmark" aria-hidden="true">
+    <span>{{ brand.name }}</span>
+  </div>
+
+  <div class="foot__bottom shell">
+    <p>© {{ year }} {{ brand.fullName }}. All rights reserved.</p>
+    <p><a class="link-line" href="#">Legal notice</a> — <a class="link-line" href="#">Privacy</a></p>
+  </div>
+</footer>

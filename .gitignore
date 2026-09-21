@@ -1,0 +1,18 @@
+# Dépendances
+node_modules/
+
+# Sorties de build
+/frontend/dist/
+/frontend/.angular/
+*.tsbuildinfo
+
+# Médias sources (photos et vidéos brutes du média-kit).
+# ~1,9 Go, dont des fichiers de plus de 100 Mo que GitHub refuse.
+# Les versions web utilisées par le site sont dans frontend/public/assets/img/,
+# elles, versionnées. Garde ces originaux ailleurs (disque, cloud).
+/frontend/src/assets/
+
+# Système
+.DS_Store
+Thumbs.db
+*.log

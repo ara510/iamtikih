@@ -1,0 +1,101 @@
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <p class="eyebrow">{{ cta.eyebrow }}</p>
+    <h1 class="page-hero__title">
+      <span>{{ cta.title[0] }}</span>
+      <span>{{ cta.title[1] }}</span>
+    </h1>
+    <p class="page-hero__lead">{{ cta.body }}</p>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="shell contact__grid">
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" appReveal>
+      <div class="field">
+        <label for="name">Name *</label>
+        <input id="name" type="text" formControlName="name" placeholder="Your name" />
+        @if (invalid('name')) {
+          <p class="field__error">Please tell me your name.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">Email *</label>
+        <input id="email" type="email" formControlName="email" placeholder="you@company.com" />
+        @if (invalid('email')) {
+          <p class="field__error">A valid email address is required.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="company">Company</label>
+        <input id="company" type="text" formControlName="company" placeholder="Hotel, agency, brand…" />
+      </div>
+
+      <fieldset class="field field--full">
+        <legend>Project type</legend>
+        <div class="chips">
+          @for (budget of budgets; track budget) {
+            <label class="chip">
+              <input type="radio" [value]="budget" formControlName="project" />
+              <span>{{ budget }}</span>
+            </label>
+          }
+        </div>
+      </fieldset>
+
+      <div class="field field--full">
+        <label for="message">Message *</label>
+        <textarea
+          id="message"
+          rows="6"
+          formControlName="message"
+          placeholder="Tell me about your destination, your property or your brand…"
+        ></textarea>
+        @if (invalid('message')) {
+          <p class="field__error">A few more words, please (10 characters minimum).</p>
+        }
+      </div>
+
+      <div class="form__foot field--full">
+        <button class="btn" type="submit">Send <span class="btn__arrow">→</span></button>
+        @if (sent()) {
+          <p class="form__ack">Thank you — your message has been received ✦</p>
+        }
+      </div>
+    </form>
+
+    <aside class="side" appReveal [revealDelay]="0.1">
+      <div class="side__block">
+        <p class="eyebrow">Email</p>
+        <a class="side__mail" [href]="'mailto:' + brand.email">{{ brand.email }}</a>
+      </div>
+
+      <div class="side__block">
+        <p class="eyebrow">WhatsApp</p>
+        <a class="side__line link-line" [href]="'https://wa.me/' + whatsappDigits">
+          {{ brand.whatsapp }}
+        </a>
+      </div>
+
+      <div class="side__block">
+        <p class="eyebrow">Based in</p>
+        <p class="side__line">{{ brand.location }}</p>
+      </div>
+
+      <div class="side__block">
+        <p class="eyebrow">Follow</p>
+        <ul class="side__socials">
+          @for (social of socials; track social.label) {
+            <li>
+              <a class="link-line" [href]="social.path" target="_blank" rel="noopener">
+                {{ social.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>

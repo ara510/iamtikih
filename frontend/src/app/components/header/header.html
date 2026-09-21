@@ -1,0 +1,74 @@
+<header class="bar">
+  <div class="bar__inner">
+    <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="I AM TIKIH — home">
+      <span class="brand__mark">✳</span>
+      <span class="brand__name">{{ brand.name }}</span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      @for (link of nav; track link.path) {
+        <a
+          class="nav__link"
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+        >
+          <span>{{ link.label }}</span>
+          <span aria-hidden="true">{{ link.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="bar__end">
+      <a class="bar__cta" routerLink="/contact">Work with me</a>
+      <button
+        class="burger"
+        type="button"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="overlay-menu"
+        [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+        (click)="toggleMenu()"
+      >
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay-menu" [attr.inert]="menuOpen() ? null : ''">
+  <div class="overlay__inner">
+    <nav class="overlay__nav" aria-label="Menu">
+      @for (link of nav; track link.path; let i = $index) {
+        <a
+          class="overlay__link"
+          [style.--i]="i"
+          [routerLink]="link.path"
+          (click)="closeMenu()"
+        >
+          <span class="overlay__index">0{{ i + 1 }}</span>
+          <span class="overlay__label">{{ link.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="overlay__aside">
+      <div class="overlay__block">
+        <p class="eyebrow">Email</p>
+        <a class="overlay__mail link-line" [href]="'mailto:' + brand.email">{{ brand.email }}</a>
+      </div>
+      <div class="overlay__block">
+        <p class="eyebrow">Follow</p>
+        <ul class="overlay__socials">
+          @for (social of socials; track social.label) {
+            <li>
+              <a class="link-line" [href]="social.path" target="_blank" rel="noopener">
+                {{ social.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

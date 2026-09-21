@@ -1,0 +1,64 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un seul déploiement à la fois ; on annule celui en cours si un nouveau arrive.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Node 22 LTS : Angular 21 ne prend pas en charge Node 26.
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Installer les dépendances
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build de production
+        working-directory: frontend
+        # Le site est servi depuis https://ara510.github.io/iamtikih/ :
+        # le base href doit correspondre au nom du dépôt.
+        run: npm run build -- --base-href /iamtikih/
+
+      - name: Repli SPA et désactivation de Jekyll
+        working-directory: frontend/dist/frontend/browser
+        run: |
+          # GitHub Pages sert 404.html pour toute URL inconnue : en y mettant
+          # l'application, les routes /references et /contact fonctionnent en
+          # accès direct et au rechargement.
+          cp index.html 404.html
+          touch .nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist/frontend/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

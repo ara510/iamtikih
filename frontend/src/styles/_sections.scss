@@ -1,0 +1,149 @@
+@use 'mixins' as *;
+
+// --- En-tête de section ----------------------------------------------------
+.sec-head {
+  display: grid;
+  gap: 1.1rem;
+  margin-bottom: clamp(2.5rem, 6vh, 5rem);
+  max-width: 62ch;
+
+  &__title {
+    @include display(var(--fs-h2));
+  }
+
+  &--split {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: none;
+  }
+}
+
+// --- Bandeau de tête des pages internes ------------------------------------
+.page-hero {
+  @include section;
+  position: relative;
+  background: var(--ink-deep);
+  color: var(--cream);
+  padding-top: clamp(9rem, 22vh, 15rem);
+  padding-bottom: clamp(3.5rem, 10vh, 7rem);
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto -10% -60% 55%;
+    height: 70vh;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(var(--aqua-rgb) / 0.22), transparent 62%);
+    pointer-events: none;
+  }
+
+  &__inner {
+    @include shell;
+    position: relative;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  &__title {
+    @include display(var(--fs-h1));
+
+    span {
+      display: block;
+    }
+  }
+
+  &__lead {
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    color: rgb(var(--cream-rgb) / 0.68);
+    max-width: 52ch;
+  }
+}
+
+// --- Grille de cartes (services) -------------------------------------------
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 2.4vw, 2.25rem);
+
+  @include below(980px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include below(620px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-rows: auto 1fr;
+
+  &__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  &__index {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  &__body {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  &__title {
+    @include display(var(--fs-h3));
+  }
+
+  &__excerpt {
+    color: var(--fg-soft);
+    line-height: 1.6;
+    max-width: 38ch;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-soft);
+    }
+  }
+
+  @include hover-media {
+    &:hover .media img {
+      transform: scale(1.06);
+    }
+  }
+}
