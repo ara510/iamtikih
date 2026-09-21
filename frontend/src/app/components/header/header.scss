@@ -37,25 +37,12 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 2vw, 1.85rem);
   font-weight: 900;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-.brand__mark {
-  font-size: 0.85em;
-  color: var(--aqua);
-  transition: transform 0.8s var(--ease);
-
-  @include hover-media {
-    .brand:hover & {
-      transform: rotate(180deg);
-    }
-  }
 }
 
 .nav {
