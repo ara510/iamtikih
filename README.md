@@ -96,6 +96,33 @@ s'affiche à la place (aucune image cassée).
 > vaut les sortir de `src/` à terme (par ex. `Tikih/medias-sources/`) pour
 > alléger le dossier de l'application.
 
+## Mise en ligne
+
+Le site est déployé sur **GitHub Pages** à chaque `push` sur `main`, via
+`.github/workflows/deploy.yml`.
+
+👉 https://ara510.github.io/iamtikih/
+
+Deux détails du workflow, utiles à connaître avant d'y toucher :
+
+- **`--base-href /iamtikih/`** — le site n'est pas à la racine du domaine mais
+  dans un sous-dossier portant le nom du dépôt. Si tu renommes le dépôt ou
+  branches un nom de domaine, cette valeur doit suivre (`/` pour un domaine
+  propre).
+- **`index.html` copié en `404.html`** — GitHub Pages ne sait pas router une
+  application monopage. Sans ce repli, ouvrir directement
+  `/iamtikih/references` renverrait une erreur 404. Avec, Angular prend le
+  relais et affiche la bonne page.
+
+## Médias sources
+
+`frontend/src/assets/` (photos et vidéos brutes, ~1,9 Go) est **exclu du
+dépôt** : GitHub refuse les fichiers de plus de 100 Mo, et plusieurs vidéos les
+dépassent. Garde ces originaux sur disque ou dans un cloud.
+
+Seules les versions web (`frontend/public/assets/img/`, ~6 Mo) sont
+versionnées — ce sont elles que le site sert.
+
 ## Reste à faire (back Node)
 
 - `POST /api/contact` → `frontend/src/app/pages/contact/contact.ts` (`submit`)
