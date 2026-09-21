@@ -43,14 +43,29 @@
       @for (paragraph of about.body; track $index) {
         <p class="lead" appReveal [revealDelay]="0.16 + $index * 0.06">{{ paragraph }}</p>
       }
-      <aside class="award" appReveal [revealDelay]="0.4">
-        <span class="award__trophy" aria-hidden="true">🏆</span>
+      <a
+        class="award"
+        [href]="brand.awardUrl"
+        target="_blank"
+        rel="noopener"
+        [attr.aria-label]="brand.award + ' — see the winners'"
+        appReveal
+        [revealDelay]="0.4"
+      >
+        <img
+          class="award__logo"
+          [src]="brand.awardLogo"
+          alt="Influencers Awards Indian Ocean"
+          loading="lazy"
+          decoding="async"
+        />
         <div class="award__body">
           <p class="award__label">{{ brand.awardLabel }}</p>
           <p class="award__title">{{ brand.awardTitle }}</p>
-          <p class="award__meta">{{ brand.awardScope }} · {{ brand.awardYear }}</p>
+          <p class="award__meta">{{ brand.awardYear }}</p>
         </div>
-      </aside>
+        <span class="award__ext" aria-hidden="true">↗</span>
+      </a>
     </div>
   </div>
 </section>

@@ -26,6 +26,8 @@ export const BRAND = {
   awardTitle: 'Best Travel Influencer',
   awardScope: 'of the Indian Ocean',
   awardYear: '2026',
+  awardUrl: 'https://www.influencersawards.mu/2026-winners/',
+  awardLogo: 'assets/img/inf.png',
   email: 'Tikihranjisoa@gmail.com',
   whatsapp: '+261 34 20 841 82',
   location: 'Antananarivo, Madagascar',
