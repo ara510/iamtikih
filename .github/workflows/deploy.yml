@@ -47,11 +47,11 @@ jobs:
           cp index.html 404.html
           touch .nojekyll
 
+      # Nécessite que Pages soit activé une fois dans
+      # Settings → Pages → Source : GitHub Actions.
+      # (L'option `enablement: true` ne fonctionne pas : le jeton du workflow
+      # n'a pas le droit de créer le site Pages.)
       - uses: actions/configure-pages@v5
-        with:
-          # Active Pages automatiquement si ce n'est pas déjà fait dans
-          # Settings → Pages (source : GitHub Actions).
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
